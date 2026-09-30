@@ -7,11 +7,11 @@ Maintainer: 67 contributors <67@localhost>
 Installed-Size: 84
 Depends: chafa (>= 1.12.0), zsh (>= 5.8)
 Filename: pool/67_1.5.0_all.deb
-Size: 14038
-MD5sum: 125fbaa495b38f2375dda4a5cb966ae7
-SHA1: ff58cd7a35e1bc2ae55c69762df3ce18bb95b6f1
-SHA256: b90ba0da56aceeb3f808eb2491670c67ca8526e4af6679624cfdd641a24e3d67
-SHA512: 5a9e94b7aba1b6885f54aa4dc64680a490c773f567b24fba1150191a660ac100b605fd2dd28ff5f648c1ed34e48a8f6199f89b90d1e0b706fffb8dc5b256450d
+Size: 14084
+MD5sum: a3771c593af9fdd46ad3ecbb69c81c69
+SHA1: 8bb4acde85c8eb11e6a55cfba185e870eda6ba4f
+SHA256: 11a3fdd68d833dd4e453eaf2be54ab9106c7d14eaf2cd59f39313fda9be702ce
+SHA512: b535c88bf8f0e1f83f60cc000be0b150a335a37051d8509ccdf0f1bd65cd296ee4532c1cbc4af27bd06c1942176c139bbb7c5c071a3c1437592a2a8e2061e477
 Description: Play the 67 GIF animation in the terminal
  A small shell command that displays an animated GIF using Chafa.
  Run 67 from any directory. A temporary Zsh session shows a pixel-art cat GIF

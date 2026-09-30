@@ -34,6 +34,8 @@ trap 'exit 130' INT
 trap 'exit 143' TERM
 repository=$work/repository
 mkdir -p "$repository/pool"
+# Retain published package URLs while clients may still hold older indexes.
+if [ -d "$output/pool" ]; then cp -R "$output/pool/." "$repository/pool/"; fi
 install -m 644 "$root/dist/67_${version}_all.deb" "$repository/pool/"
 gpg --homedir "$key_home" --batch --export-options export-minimal \
     --export "$fingerprint" > "$repository/67-archive-keyring.gpg"

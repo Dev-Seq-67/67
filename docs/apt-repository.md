@@ -79,6 +79,8 @@ di un pacchetto o di metadati alterati. Non installa nulla e non modifica le
 sorgenti di sistema. Per testare la configurazione dei file puoi usare `DESTDIR`
 con lo script generato. La compatibilità completa delle varie release di
 Debian/Ubuntu va verificata separatamente dal download del pacchetto.
+La simulazione usa lo stato dei pacchetti già installati: Chafa e Zsh devono
+essere presenti sulla macchina di test; il workflow li installa prima della verifica.
 
 Riferimenti: [sorgenti APT e Signed-By](https://manpages.debian.org/testing/apt/sources.list.5.en.html),
 [repository di terze parti](https://wiki.debian.org/DebianRepository/UseThirdParty),

@@ -24,14 +24,20 @@ apt_isolated() {
         -o APT::Update::Error-Mode=any -o Acquire::Languages=none \
         "$@"
 }
-apt_isolated apt-get update > "$work/update.log" 2>&1
+if ! apt_isolated apt-get update > "$work/update.log" 2>&1; then
+    cat "$work/update.log" >&2
+    exit 1
+fi
 (
     cd "$work/downloads"
     apt_isolated apt-get download 67 > "$work/download.log" 2>&1
 )
-version=$(dpkg-deb -f "$work"/repository/pool/*.deb Version)
+version=$(sed -n 's/^Version: //p' "$root/packaging/control")
 cmp "$work/downloads/67_${version}_all.deb" "$work/repository/pool/67_${version}_all.deb"
-apt_isolated apt --simulate install 67 > "$work/install-simulation.log" 2>&1
+if ! apt_isolated apt --simulate install 67 > "$work/install-simulation.log" 2>&1; then
+    cat "$work/install-simulation.log" >&2
+    exit 1
+fi
 printf '%s\n' 'PASS: APT verifies the signature, finds 67, downloads it and simulates installation'
 
 # Stage client configuration, replacing only the network download with a copy.
