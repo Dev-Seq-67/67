@@ -1,9 +1,9 @@
 # Repository APT di 67
 
 Il repository pubblico del progetto è `https://github.com/Dev-Seq-67/67`.
-GitHub Pages serve il contenuto della directory `apt/` all'indirizzo previsto
-`https://dev-seq-67.github.io/67/`. L'indirizzo diventa disponibile dopo
-l'attivazione di Pages e un deployment riuscito.
+GitHub Pages serve il contenuto della directory `apt/` all'indirizzo
+`https://dev-seq-67.github.io/67/`. La demo del README viene pubblicata
+separatamente sotto `https://dev-seq-67.github.io/67/demo/`.
 
 ## Installazione per gli utenti
 
@@ -56,7 +56,9 @@ in entrambe le forme `InRelease` e `Release.gpg`, esporta esclusivamente la
 chiave pubblica e verifica il risultato con APT isolato. `dist/apt/` è la
 build temporanea; `apt/` contiene i file pubblici da includere nel commit.
 Il workflow `.github/workflows/publish-apt.yml` li verifica e pubblica su Pages
-quando cambia `apt/` su `main`. Per attivarlo, in Settings → Pages scegli
+quando cambia `apt/`, `docs/demo/` o il workflow su `main`. Il sito viene
+assemblato in `dist/pages/`, copiando la demo senza modificare i file APT firmati.
+Per attivarlo, in Settings → Pages scegli
 **GitHub Actions** come sorgente di pubblicazione.
 
 Per una nuova versione aggiorna `packaging/control` e gli esempi nel README,
@@ -81,7 +83,10 @@ con lo script generato. La compatibilità completa delle varie release di
 Debian/Ubuntu va verificata separatamente dal download del pacchetto.
 La simulazione usa lo stato dei pacchetti già installati: Chafa e Zsh devono
 essere presenti sulla macchina di test; altrimenti viene saltata. Il workflow
-verifica comunque firme, download e rifiuto dei file alterati.
+di pubblicazione esegue `gpgv` su `InRelease`, controlla l'integrità gzip
+dell'indice e legge i metadati dei pacchetti con `dpkg-deb`. I controlli APT
+completi, inclusi download e rifiuto dei file alterati, avvengono nella
+preparazione locale tramite `tests/apt-repository.sh`.
 
 Riferimenti: [sorgenti APT e Signed-By](https://manpages.debian.org/testing/apt/sources.list.5.en.html),
 [repository di terze parti](https://wiki.debian.org/DebianRepository/UseThirdParty),

@@ -1,0 +1,103 @@
+{
+  "recorded_at_utc": "2026-09-30T16:48:08Z",
+  "environment": "Ubuntu 24.04, disposable Docker container",
+  "columns": 94,
+  "rows": 22,
+  "capture_fps": 12,
+  "versions": [
+    "67 1.5.0",
+    "chafa 1.14.0-1.1build1",
+    "zsh 5.9-6ubuntu2"
+  ],
+  "commands": [
+    {
+      "command": "curl -fsSL https://dev-seq-67.github.io/67/configure-apt.sh -o /tmp/67-configure-apt.sh",
+      "exit_code": 0
+    },
+    {
+      "command": "sudo sh /tmp/67-configure-apt.sh https://dev-seq-67.github.io/67",
+      "exit_code": 0
+    },
+    {
+      "command": "sudo apt update",
+      "exit_code": 0
+    },
+    {
+      "command": "sudo apt install 67",
+      "exit_code": 0
+    },
+    {
+      "command": "dpkg-query -W 67 chafa zsh",
+      "exit_code": 0
+    },
+    {
+      "command": "command -v 67",
+      "exit_code": 0
+    },
+    {
+      "command": "67 --help",
+      "exit_code": 0
+    },
+    {
+      "command": "clear",
+      "exit_code": 0
+    }
+  ],
+  "chapters": [
+    {
+      "t": 3.422144800424576e-06,
+      "title": "01  Una sorgente, una sola volta",
+      "subtitle": "Ubuntu 24.04 · installazione reale in un contenitore pulito",
+      "zoom": false
+    },
+    {
+      "t": 11.701227124081925,
+      "title": "02  Aggiorna gli indici",
+      "subtitle": "APT legge e verifica la sorgente firmata del progetto",
+      "zoom": false
+    },
+    {
+      "t": 16.831252271076664,
+      "title": "03  Installa con APT",
+      "subtitle": "sudo apt install 67 · Chafa e Zsh arrivano come dipendenze",
+      "zoom": false
+    },
+    {
+      "t": 33.946139859966934,
+      "title": "04  Controlla il risultato",
+      "subtitle": "Pacchetto installato, comando disponibile nel PATH",
+      "zoom": false
+    },
+    {
+      "t": 43.99157259706408,
+      "title": "05  Digita 67",
+      "subtitle": "Il gatto si anima sopra il prompt · la riga dei comandi resta libera",
+      "zoom": false
+    },
+    {
+      "t": 49.85548496595584,
+      "title": "06  Guarda da vicino",
+      "subtitle": "Zoom sul rendering reale di Chafa e sull’input di Zsh",
+      "zoom": true
+    },
+    {
+      "t": 62.05862686899491,
+      "title": "07  Stop, riparti, esci",
+      "subtitle": "67 --stop nasconde la GIF · 67 la riattiva · exit torna alla shell",
+      "zoom": false
+    },
+    {
+      "t": 72.81344539299607,
+      "title": "08  Fatto",
+      "subtitle": "Installazione verificata · animazione reale · shell originale ripristinata",
+      "zoom": false
+    }
+  ],
+  "duration_seconds": 74.81,
+  "verified": {
+    "fresh_install": true,
+    "typed_command_output": true,
+    "renderer_cleanup": true
+  },
+  "notes": "Actual terminal snapshots; titles and camera zoom added in post-production. No command output fabricated. sudo requires no password only in this container."
+}

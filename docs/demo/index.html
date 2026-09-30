@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080d17">
+    <meta name="description" content="67 dal vivo: installazione con APT, avvio del gatto animato e zoom sul prompt. Una registrazione reale su Ubuntu.">
+    <title>67 · Guarda il terminale prendere vita</title>
+    <style>
+        :root { color-scheme: dark; --bg:#080d17; --panel:#101827; --line:#26344b; --ink:#e8edf6; --muted:#9baac0; --mint:#52e0c6; }
+        * { box-sizing:border-box; }
+        body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.65 system-ui,sans-serif; }
+        body::before { content:""; position:absolute; inset:0 0 auto; height:600px; background:radial-gradient(ellipse at 75% 0%,#153e3e60,transparent 65%); pointer-events:none; }
+        main { position:relative; max-width:1280px; padding:32px; margin:auto; }
+        nav { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+        .mark { display:inline-flex; align-items:center; gap:14px; font-weight:750; }
+        .mark span { background:var(--mint); color:var(--bg); font-size:26px; line-height:1; padding:12px; border-radius:12px; }
+        a { color:var(--mint); text-decoration:none; text-underline-offset:4px; }
+        a:hover { text-decoration:underline; }
+        a:focus-visible, button:focus-visible, video:focus-visible { outline:3px solid var(--mint); outline-offset:5px; }
+        .eyebrow { color:var(--mint); font-size:13px; letter-spacing:.17em; font-weight:750; margin:68px 0 14px; }
+        h1 { font-size:clamp(36px,5.5vw,68px); line-height:1.08; letter-spacing:-.045em; margin:0; max-width:1000px; }
+        .lead { color:var(--muted); max-width:770px; font-size:20px; margin:22px 0 26px; }
+        .tags { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px; }
+        .tag { border:1px solid var(--line); border-radius:99px; padding:5px 13px; font-size:13px; color:var(--muted); }
+        .player { border:1px solid var(--line); border-radius:18px; overflow:hidden; background:var(--panel); box-shadow:0 25px 80px #0005; }
+        video { display:block; width:100%; aspect-ratio:8/5; background:var(--bg); }
+        .player-footer { display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; padding:16px 22px; font-size:14px; color:var(--muted); border-top:1px solid var(--line); }
+        .chapters { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:16px; }
+        button { font:inherit; cursor:pointer; }
+        .chapter { border:1px solid var(--line); background:var(--panel); color:var(--ink); text-align:left; border-radius:12px; padding:14px 18px; transition:border-color .15s,background .15s; }
+        .chapter:hover, .chapter[aria-pressed=true] { border-color:var(--mint); background:#152c30; }
+        .chapter small { display:block; color:var(--mint); font:13px ui-monospace,monospace; margin-bottom:5px; }
+        .grid { display:grid; grid-template-columns:1.25fr 1fr; gap:24px; margin:48px 0; }
+        .card { border:1px solid var(--line); border-radius:18px; background:var(--panel); padding:26px; min-width:0; }
+        h2 { font-size:24px; line-height:1.3; margin:0 0 14px; letter-spacing:-.02em; }
+        .card p { color:var(--muted); }
+        code { font-family:ui-monospace,monospace; font-size:.9em; }
+        pre { overflow:auto; background:#080d17; border:1px solid var(--line); border-radius:12px; padding:16px; line-height:1.65; }
+        pre code { color:var(--mint); font-size:13px; }
+        .copy { padding:8px 15px; background:transparent; color:var(--mint); border:1px solid var(--mint); border-radius:8px; font-size:14px; }
+        ol { padding-left:22px; color:var(--muted); }
+        li { margin-bottom:12px; }
+        .note { font-size:14px; color:var(--muted); }
+        footer { padding:20px 0 36px; border-top:1px solid var(--line); display:flex; gap:18px; justify-content:space-between; flex-wrap:wrap; font-size:14px; color:var(--muted); }
+        #status { min-height:24px; margin:10px 0 0; font-size:14px; color:var(--mint); }
+        @media(max-width:760px) { main { padding:22px 16px; } .eyebrow { margin-top:42px; } .chapters { grid-template-columns:repeat(2,1fr); } .grid { grid-template-columns:1fr; } .card { padding:22px; } .lead { font-size:18px; } nav { font-size:14px; } .mark { gap:8px; } .mark span { padding:9px; } }
+        @media(prefers-reduced-motion:reduce) { * { transition:none !important; } }
+    </style>
+</head>
+<body>
+<main>
+    <nav aria-label="Navigazione principale">
+        <a class="mark" href="https://github.com/Dev-Seq-67/67"><span>67</span> Un gatto. Il tuo terminale.</a>
+        <a href="https://github.com/Dev-Seq-67/67#installazione">Apri il README ↗</a>
+    </nav>
+    <p class="eyebrow">DAL VIVO, DALL'INSTALLAZIONE AL PRIMO COMANDO</p>
+    <h1>Il gatto si anima.<br>Tu continui a scrivere.</h1>
+    <p class="lead">Guarda una vera installazione con <code>sudo apt install 67</code>, poi entra nella sessione Zsh. Lo zoom mostra da vicino la GIF e il prompt che rimane libero.</p>
+    <div class="tags"><span class="tag">01:15 · senza audio</span><span class="tag">Ubuntu 24.04</span><span class="tag">Zoom 1,65×</span><span class="tag">Installazione reale</span></div>
+    <section class="player" aria-label="Video dimostrativo">
+        <video id="video" controls playsinline preload="metadata" poster="poster.png" aria-label="Demo completa: installazione APT e gatto animato sopra il prompt">
+            <source src="67-demo.mp4" type="video/mp4">
+            <track src="captions.vtt" kind="captions" srclang="it" label="Italiano">
+            Il browser non riproduce il video. <a href="67-demo.mp4">Scarica l'MP4</a>.
+        </video>
+        <div class="player-footer"><span>Comandi e output reali. Titoli e zoom aggiunti alla cattura.</span><a href="67-demo.mp4" download>↓ Scarica il video</a></div>
+    </section>
+    <div class="chapters" role="group" aria-label="Vai a un capitolo del video">
+        <button class="chapter" data-time="0" aria-pressed="false"><small>00:00 · 01</small>Configura la sorgente</button>
+        <button class="chapter" data-time="11.701" aria-pressed="false"><small>00:12 · 02</small>Aggiorna gli indici</button>
+        <button class="chapter" data-time="16.831" aria-pressed="false"><small>00:17 · 03</small>Installa 67</button>
+        <button class="chapter" data-time="33.946" aria-pressed="false"><small>00:34 · 04</small>Verifica il comando</button>
+        <button class="chapter" data-time="43.991" aria-pressed="false"><small>00:44 · 05</small>Avvia l'animazione</button>
+        <button class="chapter" data-time="49.855" aria-pressed="false"><small>00:50 · 06</small>Zoom e digitazione</button>
+        <button class="chapter" data-time="62.058" aria-pressed="false"><small>01:02 · 07</small>Stop, riparti, esci</button>
+        <button class="chapter" data-time="72.813" aria-pressed="false"><small>01:13 · 08</small>Fatto</button>
+    </div>
+    <noscript><p>Usa i controlli del video per raggiungere i capitoli. Il tutorial e l'MP4 sono disponibili anche senza JavaScript.</p></noscript>
+    <div class="grid">
+        <section class="card">
+            <h2>Provalo sul tuo computer</h2>
+            <p>Su Debian/Ubuntu, con <code>curl</code> e i certificati HTTPS disponibili, configura la sorgente una volta:</p>
+            <pre><code id="setup">curl -fsSL https://dev-seq-67.github.io/67/configure-apt.sh -o /tmp/67-configure-apt.sh
+sudo sh /tmp/67-configure-apt.sh https://dev-seq-67.github.io/67
+sudo apt update</code></pre>
+            <button class="copy" data-copy="setup">Copia la configurazione</button>
+            <p>Poi installa il pacchetto e avvia il gatto:</p>
+            <pre><code id="install">sudo apt install 67
+67</code></pre>
+            <button class="copy" data-copy="install">Copia installazione e avvio</button>
+            <p id="status" role="status" aria-live="polite"></p>
+            <p class="note">Il repository del progetto deve essere configurato prima di usare <code>sudo apt install 67</code>. Per requisiti, alternative e rimozione, leggi il <a href="https://github.com/Dev-Seq-67/67#installazione">tutorial completo</a>.</p>
+        </section>
+        <section class="card">
+            <h2>Cosa stai guardando</h2>
+            <ol>
+                <li>Un contenitore Ubuntu 24.04 parte senza il pacchetto <code>67</code>. Sono già presenti curl, certificati HTTPS e sudo.</li>
+                <li>APT scarica il pacchetto dal repository HTTPS del progetto e installa Chafa e Zsh dalle sorgenti Ubuntu.</li>
+                <li>Il comando <code>67</code> apre la sessione temporanea. Chafa rende la GIF a 48 colonne × 8 righe; Zsh gestisce l'input sottostante.</li>
+                <li>La prova <code>printf</code> produce davvero il suo output. Stop, riavvio e uscita completano la dimostrazione.</li>
+            </ol>
+            <p class="note">67 1.5.0 · Chafa 1.14.0 · Zsh 5.9. In questo contenitore sudo non chiede la password. Il tuo computer può richiederla. La cattura dura 75 secondi, a velocità reale.</p>
+            <a href="recording.json">Dati della registrazione ↗</a>
+        </section>
+    </div>
+    <footer><span>67 · pixel art nel prompt · licenza MIT</span><a href="https://github.com/Dev-Seq-67/67/tree/main/tools/demo">Riproduci questa registrazione ↗</a></footer>
+</main>
+<script>
+    const video = document.querySelector('#video');
+    const chapters = [...document.querySelectorAll('.chapter')];
+    function seek(time) {
+        video.currentTime = Math.max(0, Math.min(time, video.duration || time));
+    }
+    chapters.forEach(button => button.addEventListener('click', () => {
+        seek(Number(button.dataset.time));
+        video.play().catch(() => {});
+    }));
+    video.addEventListener('timeupdate', () => {
+        const current = chapters.findLast(button => Number(button.dataset.time) <= video.currentTime);
+        chapters.forEach(button => button.setAttribute('aria-pressed', String(button === current)));
+    });
+    video.addEventListener('loadedmetadata', () => {
+        const requested = Number(new URLSearchParams(location.search).get('t'));
+        if (Number.isFinite(requested) && requested >= 0) seek(requested);
+    }, {once: true});
+    document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
+        const status = document.querySelector('#status');
+        try {
+            await navigator.clipboard.writeText(document.getElementById(button.dataset.copy).textContent);
+            status.textContent = 'Comandi copiati. Incollali nel tuo terminale.';
+        } catch {
+            status.textContent = 'Seleziona e copia i comandi nel riquadro.';
+        }
+    }));
+</script>
+</body>
+</html>

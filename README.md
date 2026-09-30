@@ -1,114 +1,308 @@
-# 67
+<p align="center">
+  <img src="docs/demo/banner.svg" alt="67 — Un gatto. Il tuo terminale." width="100%">
+</p>
 
-Un piccolo comando per Linux che mostra `assets/67.gif` animata **sopra il
-prompt**, lasciando la riga successiva libera per i comandi. Il gatto è uno sprite in pixel art:
-orecchie nette, occhi grandi, lingua rosa e zampe che alternano il gesto “6 7”.
-La GIF conserva le proporzioni e resta separata dal testo mentre digiti.
+<p align="center">
+  <strong>Un comando. Otto righe di pixel art. Il prompt pronto per scrivere.</strong><br>
+  Un piccolo gatto animato sopra la riga dei comandi, dentro una sessione Zsh temporanea.
+</p>
 
-Il confronto visivo ha fissato la dimensione a **48 colonne × 8 righe**:
-a due righe occhi e mani non erano riconoscibili. I fotogrammi hanno una palette
-limitata e bordi trasparenti. Vedi [il confronto e le anteprime](design/README.md).
+<p align="center">
+  <a href="https://dev-seq-67.github.io/67/demo/">▶ Guarda la demo</a> ·
+  <a href="#installazione">Installa</a> ·
+  <a href="#utilizzo">Usalo</a> ·
+  <a href="#sviluppo-e-verifiche">Sviluppa</a> ·
+  <a href="LICENSE">MIT</a>
+</p>
 
-[Chafa](https://hpjansson.org/chafa/) genera i fotogrammi; l'editor di
-[Zsh](https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html) gestisce GIF e
-input insieme. La GIF è solo visuale: non entra mai nel comando eseguito.
+<p align="center">
+  <img alt="Versione 1.5.0" src="https://img.shields.io/badge/versione-1.5.0-52e0c6?style=flat-square&amp;labelColor=111827">
+  <img alt="Linux, Debian e Ubuntu" src="https://img.shields.io/badge/Linux-Debian%20%2F%20Ubuntu-e8edf6?style=flat-square&amp;labelColor=111827">
+  <img alt="Runtime Chafa e Zsh" src="https://img.shields.io/badge/runtime-Chafa%20%2B%20Zsh-e8edf6?style=flat-square&amp;labelColor=111827">
+  <img alt="Licenza MIT" src="https://img.shields.io/badge/licenza-MIT-52e0c6?style=flat-square&amp;labelColor=111827">
+</p>
+
+## Cosa fa
+
+Digita `67`: un gatto nero e bianco alterna le zampe nel gesto “6 7”, mentre tu continui a usare il terminale. L'animazione sta **sopra il prompt**; l'input ha la propria riga e i comandi producono il loro normale output.
+
+- **Animazione nel terminale.** Chafa converte la GIF in caratteri Unicode e colori; Zsh li integra nel proprio editor.
+- **Input utilizzabile.** Frecce, cancellazione, cronologia della sessione, comandi lunghi e input multilinea restano disponibili.
+- **Sessione temporanea.** Parte nella directory corrente; `exit` ti riporta alla shell da cui sei partito. I tuoi dotfile e la shell predefinita restano intatti.
+- **Controlli immediati.** `67 --stop` nasconde il gatto, `67` lo riattiva. Ctrl+C annulla l'input e ferma l'animazione.
+- **Runtime piccolo.** Chafa, Zsh e le normali utilità di sistema. Per usarlo non servono Python, Docker o tmux.
+
+Lo sprite è un asset di **144 × 48 pixel**, con due pose da 280 ms. Nel terminale occupa **48 colonne × 8 righe**: una dimensione scelta per distinguere occhi, lingua e zampe. [Guarda il confronto visivo](design/README.md).
+
+## Demo dal vivo
+
+<a href="https://dev-seq-67.github.io/67/demo/">
+  <img src="docs/demo/preview.gif" alt="Registrazione reale: il gatto si anima sopra il prompt mentre viene digitato un comando; zoom sul terminale" width="100%">
+</a>
+
+**[▶ Video completo: installazione, prova e zoom](https://dev-seq-67.github.io/67/demo/)** · [Scarica l'MP4](https://dev-seq-67.github.io/67/demo/67-demo.mp4) · [File nel repository](docs/demo/67-demo.mp4)
+
+**1 minuto e 15 secondi**, senza audio, con didascalie e ingrandimento **1,65×**. L'anteprima qui sopra mostra un estratto; il video completo contiene tutti i passaggi:
+
+| Momento | Cosa vedi |
+| --- | --- |
+| [00:00](https://dev-seq-67.github.io/67/demo/?t=0) | Download dello script e configurazione iniziale del repository APT. |
+| [00:12](https://dev-seq-67.github.io/67/demo/?t=12) | `sudo apt update` legge la sorgente firmata. |
+| [00:17](https://dev-seq-67.github.io/67/demo/?t=17) | **`sudo apt install 67`**, conferma e installazione delle dipendenze. |
+| [00:34](https://dev-seq-67.github.io/67/demo/?t=34) | Verifica dei pacchetti, del percorso del comando e dell'aiuto. |
+| [00:44](https://dev-seq-67.github.io/67/demo/?t=44) | Avvio con `67` e animazione della GIF nel terminale. |
+| [00:50](https://dev-seq-67.github.io/67/demo/?t=50) | Zoom sul gatto; digitazione ed esecuzione di `printf`. |
+| [01:02](https://dev-seq-67.github.io/67/demo/?t=62) | `67 --stop`, riavvio con `67` e ritorno alla shell con `exit`. |
+
+La registrazione usa un contenitore Ubuntu 24.04 pulito: **APT scarica e installa davvero il pacchetto dal repository pubblico**. Chafa 1.14.0 e Zsh 5.9 eseguono l'animazione; i comandi e il loro output sono reali. Titoli e zoom vengono aggiunti dopo la cattura. Nel contenitore `sudo` non chiede una password; sul tuo computer può richiederla. [Dati della registrazione](docs/demo/recording.json) · [Come riprodurla](tools/demo/README.md).
 
 ## Installazione
 
-Il repository APT del progetto usa GitHub Pages. Dopo la
-[configurazione iniziale della sorgente](docs/apt-repository.md), installa con:
+### Debian / Ubuntu: repository APT
+
+La prima volta devi aggiungere la sorgente del progetto. **Dopo questa configurazione il comando di installazione è esattamente:**
 
 ```sh
 sudo apt install 67
 ```
 
-Gli aggiornamenti arrivano tramite i normali comandi APT. La configurazione
-iniziale è necessaria: il pacchetto non viene distribuito dai repository ufficiali.
+Il pacchetto non è nei repository ufficiali di Debian o Ubuntu: eseguire soltanto quel comando su un computer che non conosce ancora la sorgente non basta.
 
-### Installazione locale
+**1. Prepara il download.** Se `curl` e i certificati HTTPS sono già disponibili, passa al punto 2.
 
-Su Debian/Ubuntu, dalla directory del progetto:
+```sh
+sudo apt update
+sudo apt install curl ca-certificates
+```
+
+**2. Aggiungi il repository, una volta per computer.**
+
+```sh
+curl -fsSL https://dev-seq-67.github.io/67/configure-apt.sh -o /tmp/67-configure-apt.sh
+sudo sh /tmp/67-configure-apt.sh https://dev-seq-67.github.io/67
+sudo apt update
+```
+
+Lo script verifica l'hash della chiave pubblica scaricata e crea due file:
+
+| File | Scopo |
+| --- | --- |
+| `/etc/apt/keyrings/67-archive-keyring.gpg` | Chiave pubblica per verificare questa sorgente. |
+| `/etc/apt/sources.list.d/67.sources` | Indirizzo del repository e riferimento alla chiave tramite `Signed-By`. |
+
+**3. Installa e avvia.**
+
+```sh
+sudo apt install 67
+67
+```
+
+APT risolve e installa anche Chafa e Zsh dalle sorgenti della tua distribuzione. Il pacchetto mette il comando in `/usr/bin/67` e gli asset in `/usr/share/67/`.
+
+Per controllare il risultato:
+
+```sh
+command -v 67
+# /usr/bin/67
+
+dpkg-query -W 67 chafa zsh
+67 --help
+```
+
+[Dettagli sulla sorgente, sulle firme e sulla pubblicazione](docs/apt-repository.md).
+
+### Prova senza installare il progetto
+
+Con Git, Chafa e Zsh disponibili:
+
+```sh
+git clone https://github.com/Dev-Seq-67/67.git
+cd 67
+./src/67
+```
+
+Su Debian/Ubuntu puoi ottenere gli strumenti con `sudo apt install git chafa zsh`. Esegui il launcher in un terminale interattivo; `exit` chiude la sessione di prova.
+
+### Installazione dai sorgenti
+
+Dalla copia del repository:
 
 ```sh
 sudo apt install chafa zsh
 sudo ./install.sh
+67
 ```
 
-Installa `/usr/local/bin/67`, `/usr/local/share/67/67.gif` e
-`/usr/local/share/67/prompt.zsh` e i moduli in `/usr/local/share/67/prompt/`.
-`/usr/local/bin` deve essere nel `PATH`.
+Lo script installa il launcher in `/usr/local/bin/67`, la GIF e `prompt.zsh` in `/usr/local/share/67/`, e i quattro moduli in `/usr/local/share/67/prompt/`. `/usr/local/bin` deve essere nel `PATH`.
 
-In alternativa, installa il pacchetto Debian/Ubuntu con le sue dipendenze:
+### Pacchetto `.deb` costruito localmente
 
-```sh
-sudo apt install ./dist/67_1.5.0_all.deb
-```
-
-Il pacchetto usa `/usr/bin/67` e `/usr/share/67/`.
-Scegli un solo metodo. Per ricostruire il `.deb` serve `dpkg-deb`:
+Dalla copia del repository, con `dpkg-deb` disponibile:
 
 ```sh
 ./packaging/build-deb.sh
+sudo apt install ./dist/67_1.5.0_all.deb
+67
 ```
+
+Il pacchetto è `Architecture: all`: contiene script e asset, mentre le dipendenze native arrivano dalla distribuzione. Il builder legge la versione da [`packaging/control`](packaging/control).
+
+**Scegli un metodo di installazione.** Una copia in `/usr/local/bin` può avere precedenza su quella gestita da APT in `/usr/bin`. Usa `command -v 67` per sapere quale stai avviando.
+
+## Requisiti
+
+| Componente | Requisito |
+| --- | --- |
+| Sistema | Linux; pacchetto e istruzioni APT per Debian/Ubuntu. Demo verificata su Ubuntu 24.04. |
+| Chafa | **≥ 1.12.0**, per convertire la GIF in fotogrammi da terminale. |
+| Zsh | **≥ 5.8**, per la sessione privata e l'editor interattivo. |
+| Terminale | Input e output interattivi, UTF-8; supporto ai colori RGB consigliato. |
+| Spazio | Almeno **48 colonne × 10 righe** per mostrare la GIF. Una finestra da 80 × 24 lascia più spazio ai comandi. |
+| Configurazione APT | `curl`, certificati HTTPS e accesso amministrativo. Servono per installare, non per ogni avvio. |
+
+Per lo sviluppo, i test usano anche `tmux` e Perl. Gli strumenti per produrre il video hanno dipendenze proprie, descritte [qui](tools/demo/README.md).
 
 ## Utilizzo
 
-Da qualsiasi directory, in un terminale interattivo:
+Avvia da qualsiasi directory:
 
 ```sh
 67
 ```
 
-Apre una **shell Zsh temporanea** nella directory corrente. La GIF occupa otto
-righe; il prompt va automaticamente a capo sotto il gatto. I comandi successivi
-si scrivono su questa riga separata, anche quando il testo va a capo. Puoi usare
-normalmente frecce, cancellazione, cronologia e completamento.
-In finestre più strette di 48 colonne o più basse di 10 righe la GIF viene
-nascosta, lasciando utilizzabile la shell; ricompare quando allarghi la finestra.
-Al ritorno della GIF lo schermo viene ridisegnato, conservando il testo digitato.
-Durante l'esecuzione dei comandi lascia spazio al loro output; ricompare al prompt.
+Si apre una **nuova sessione Zsh temporanea** nella directory corrente. La shell eredita ambiente e `PATH`; usa la configurazione privata del progetto, senza caricare la tua `.zshrc` personale. Alias, temi e plugin definiti in quel file non saranno presenti.
 
-Nella shell temporanea:
+Puoi scrivere comandi normalmente:
 
 ```sh
-67 --stop  # nasconde la GIF
-67         # la riattiva
-exit       # torna alla shell originale
+pwd
+printf 'Il prompt funziona.\n'
 ```
 
-**Ctrl+C** fa scomparire subito la GIF e annulla la riga corrente; il terminale
-resta utilizzabile. Digita **`67`** per mostrarla nuovamente. Durante l'esecuzione
-di un comando Ctrl+C interrompe quel comando e lascia la GIF nascosta fino a `67`.
-La shell predefinita e i file di configurazione dell'utente non vengono modificati.
-Non serve tmux e non vengono creati pannelli separati.
+Mentre digiti, il gatto continua ad animarsi sopra l'input. Quando premi Invio lascia spazio al comando e al suo output; al prompt successivo ricompare. I caratteri dello sprite sono separati dall'input eseguito.
 
-Per provarlo senza installazione: `./src/67`.
+### Comandi e tasti
 
-## Disinstallazione
+| Comando / tasto | Effetto |
+| --- | --- |
+| `67` dalla tua shell | Apre la sessione temporanea con l'animazione attiva. |
+| `67` dentro la sessione | Riattiva l'animazione senza aprire un'altra sessione. |
+| `67 --stop` dentro la sessione | Nasconde la GIF; puoi continuare a usare la shell. |
+| `67 --help` oppure `67 -h` | Mostra l'aiuto. |
+| **Ctrl+C** mentre digiti | Annulla la riga e nasconde la GIF. Digita `67` per riattivarla. |
+| **Ctrl+C** durante un comando | Interrompe il comando; l'animazione resta nascosta fino a `67`. |
+| `exit` | Chiude la sessione privata e torna alla shell originale. |
 
-Esci prima dalla shell temporanea con `exit`. Per l'installazione tramite script:
+`67 --stop` va eseguito **nella sessione con il gatto**. Da un'altra shell non controlla una sessione già aperta.
+
+La cronologia della sessione rimane in memoria. L'animazione non crea pannelli tmux e non richiede di cambiare la shell predefinita. Il renderer viene chiuso all'uscita; i tuoi processi in background non sono bersagli della pulizia del renderer.
+
+### Finestre piccole e ridimensionamento
+
+Sotto 48 colonne o 10 righe la GIF viene nascosta e il renderer si ferma. L'input rimane disponibile. Allargando la finestra il programma tenta di ripristinare l'animazione.
+
+**Limite noto:** dopo una sequenza di restringimento e riallargamento alcune righe del gatto possono finire fuori dalla parte visibile del terminale. La suite delle risorse rileva ancora questo problema. Per recuperare una visualizzazione pulita, esci con `exit` e avvia nuovamente `67` in una finestra sufficientemente ampia. [Evidenze e stato dei test](tests/results/README.md).
+
+## Aggiornamento e rimozione
+
+### Aggiornare tramite APT
+
+Con la sorgente già configurata:
 
 ```sh
-sudo ./uninstall.sh
+sudo apt update
+sudo apt install --only-upgrade 67
 ```
 
-Per il pacchetto:
+Gli aggiornamenti del pacchetto rientrano anche nei normali aggiornamenti di sistema. La disponibilità di una nuova versione dipende dalla pubblicazione di un nuovo pacchetto firmato.
+
+### Disinstallare
+
+Esci prima dalla sessione con `exit`. Per il pacchetto APT o `.deb`:
 
 ```sh
 sudo apt purge 67
 ```
 
-## Dipendenze e verifica
+Se vuoi rimuovere anche la sorgente del progetto:
 
-Chafa ≥ 1.12, Zsh ≥ 5.8, shell POSIX e normali utilità Linux. Nessun framework o
-Python. Zsh gestisce l'animazione con il proprio editor, evitando aggiornamenti
-in background che interferiscano con il cursore della shell.
+```sh
+sudo rm -f /etc/apt/sources.list.d/67.sources /etc/apt/keyrings/67-archive-keyring.gpg
+sudo apt update
+```
 
-Il rendering usa un solo thread e la modalità economica di Chafa. I fotogrammi
-già decodificati vengono riutilizzati con una cache limitata a 32 elementi;
-il renderer si ferma con Ctrl+C e quando la finestra è troppo piccola.
+Per una copia installata tramite `install.sh`, dalla directory del repository:
 
-Test riproducibili (solo per sviluppo: `tmux` e `perl`):
+```sh
+sudo ./uninstall.sh
+```
+
+Chafa e Zsh possono essere usati da altri programmi: la rimozione di `67` non richiede di disinstallarli manualmente.
+
+## Se qualcosa non funziona
+
+| Sintomo | Cosa controllare |
+| --- | --- |
+| `Unable to locate package 67` / pacchetto non trovato | Completa la configurazione iniziale della sorgente e controlla che `sudo apt update` termini senza errori per il repository di 67. |
+| Errore di firma o chiave APT | Riesegui lo script di configurazione usando l'URL di questa guida, poi `sudo apt update`. Se persiste, conserva il messaggio completo e [apri una segnalazione](https://github.com/Dev-Seq-67/67/issues). |
+| `67: command not found` | Verifica l'installazione e il `PATH`. Per lo script locale deve esserci `/usr/local/bin`; per APT il comando è in `/usr/bin`. |
+| `67: manca chafa` / `manca zsh` | Installa `chafa` e `zsh`; per lo script locale le dipendenze vanno installate separatamente. |
+| `avvia il comando in un terminale interattivo` | Esegui `67` direttamente nel terminale, senza pipe o redirezioni. |
+| `asset mancanti` / `moduli mancanti` | Reinstalla usando lo stesso metodo. Il launcher ha bisogno della GIF, di `prompt.zsh` e dei quattro moduli. |
+| Nessun gatto dopo Ctrl+C | Digita `67` nella sessione: Ctrl+C disattiva intenzionalmente l'animazione. |
+| Gatto assente o tagliato dopo un resize | Controlla le dimensioni; per il limite noto, esci e riavvia in una finestra ampia. |
+| Colori o caratteri insoliti | Usa un terminale UTF-8 con un font che copra i caratteri a blocchi Unicode e supporto RGB. |
+| Alias o tema personale assenti | È la sessione privata del progetto: non carica la tua `.zshrc`. `exit` torna al tuo ambiente abituale. |
+
+Per una segnalazione utile indica distribuzione, terminale, dimensioni della finestra, metodo di installazione e output di `chafa --version` e `zsh --version`. Aggiungi uno screenshot se il difetto è visivo.
+
+## Come funziona
+
+```text
+67 → sessione Zsh privata → Chafa legge la GIF
+                           ↓
+                   decodifica ANSI e cache
+                           ↓
+                 animazione sopra il prompt
+                 input nella riga successiva
+```
+
+Il launcher POSIX trova gli asset relativamente al proprio percorso, crea un `ZDOTDIR` temporaneo e avvia Zsh. Nell'editor, **`PREDISPLAY` contiene lo sprite e il prompt; `BUFFER` contiene soltanto ciò che scrivi**. Le evidenziazioni vengono rimosse prima di accettare un comando, per evitare che i colori della GIF passino all'input.
+
+Chafa usa un thread e la modalità di lavoro economica. La cache mantiene al massimo 32 fotogrammi decodificati. Il renderer si arresta quando l'animazione è disabilitata, non entra nella finestra o la sessione termina. [Architettura e vincoli di manutenzione](docs/architecture.md).
+
+### Mappa del repository
+
+| Percorso | Contenuto |
+| --- | --- |
+| [`src/67`](src/67) | Launcher POSIX: argomenti, dipendenze, percorsi e sessione privata. |
+| [`src/prompt.zsh`](src/prompt.zsh) | Configurazione Zsh e caricamento dei moduli. |
+| [`src/prompt/`](src/prompt/) | `ansi.zsh`: colori; `frames.zsh`: cache; `renderer.zsh`: Chafa; `editor.zsh`: input e lifecycle. |
+| [`assets/67.gif`](assets/67.gif) | Animazione distribuita. |
+| [`design/`](design/) | Sorgenti grafici, confronti e anteprime. |
+| [`install.sh`](install.sh) / [`uninstall.sh`](uninstall.sh) | Installazione locale e staging con `DESTDIR`. |
+| [`packaging/`](packaging/) | Metadati Debian, builder `.deb` e strumenti per firmare il repository. |
+| [`apt/`](apt/) | Snapshot pubblico del repository APT firmato. |
+| [`tests/`](tests/) | Test interattivi, controlli APT e risultati delle misure. |
+| [`docs/demo/`](docs/demo/) | Video, anteprima, player e catture originali. |
+| [`tools/demo/`](tools/demo/) | Ambiente e script per riprodurre la registrazione. |
+
+## Sviluppo e verifiche
+
+### Controlli di sintassi
+
+```sh
+for file in src/67 install.sh uninstall.sh packaging/build-deb.sh packaging/apt/*.sh tests/*.sh; do
+    sh -n "$file" || break
+done
+for file in src/prompt.zsh src/prompt/*.zsh; do
+    zsh -n "$file" || break
+done
+```
+
+### Test interattivi
+
+Con tmux, Perl, Chafa e Zsh disponibili:
 
 ```sh
 ./tests/regression.sh
@@ -116,32 +310,35 @@ Test riproducibili (solo per sviluppo: `tmux` e `perl`):
 ./tests/resources.sh
 ```
 
-Vedi [metodo, limiti e risultati dei test](tests/README.md).
+La regressione verifica anche una copia deliberatamente difettosa: il controllo deve rilevare i colori dello sprite che contaminano un comando accettato. L'integrazione copre animazione, digitazione, righe lunghe, Unicode, multilinea, Ctrl+C, job control e pulizia all'uscita.
 
-## Struttura del codice
+**La suite completa delle risorse non passa ancora**, per il problema di resize descritto sopra. Le misure locali documentate riportano circa **3,6% di un core**, **20 MiB di RSS complessiva** e **due processi / due thread** durante l'animazione. Sono osservazioni su una macchina e una configurazione specifiche, non limiti garantiti su ogni sistema. [Metodo dei test](tests/README.md) · [Risultati e condizioni](tests/results/README.md) · [Verifiche del refactor](tests/results/refactor.md).
 
-`src/67` risolve i percorsi e apre la sessione privata; `src/prompt.zsh`
-configura Zsh e carica quattro moduli da `src/prompt/`:
-
-| Modulo | Responsabilità |
-| --- | --- |
-| `ansi.zsh` | Converte le sequenze ANSI in caratteri e intervalli di colore. |
-| `frames.zsh` | Assembla i fotogrammi e mantiene la cache limitata. |
-| `renderer.zsh` | Avvia e chiude Chafa, legge le righe dal suo descrittore. |
-| `editor.zsh` | Gestisce prompt, widget ZLE, segnali e comando `67`. |
-
-Per seguire flusso dei dati, stato e vincoli di manutenzione, vedi
-[l'architettura](docs/architecture.md). Le istruzioni operative per gli agenti
-sono in [AGENTS.md](AGENTS.md).
-
-Per verificare installazione e rimozione senza modificare il sistema:
+### Installazione di prova senza toccare il sistema
 
 ```sh
 stage=$(mktemp -d)
 DESTDIR="$stage" ./install.sh
 (cd /tmp && PATH="$stage/usr/local/bin:$PATH" 67)
-# Nella shell temporanea: prova altri comandi, poi digita exit.
+# Nella sessione temporanea: prova i comandi, poi digita exit.
 DESTDIR="$stage" ./uninstall.sh
 ```
 
-Licenza MIT: vedi [LICENSE](LICENSE).
+### Pubblicare un aggiornamento APT
+
+I manutentori aggiornano la versione in `packaging/control` e gli esempi della guida, poi eseguono:
+
+```sh
+./packaging/apt/init-key.sh
+./packaging/apt/prepare-publication.sh
+```
+
+La preparazione costruisce il pacchetto, firma gli indici e li verifica con APT isolato, inclusi i controlli sui file alterati. La chiave privata resta fuori dal repository. Il workflow Pages pubblica lo snapshot già firmato e la pagina della demo; una modifica ai soli sorgenti non genera automaticamente un nuovo pacchetto.
+
+[Guida per i manutentori](docs/apt-repository.md) · [Istruzioni di progetto](AGENTS.md).
+
+## Contributi e licenza
+
+Segnala problemi e proponi miglioramenti nelle [issue](https://github.com/Dev-Seq-67/67/issues) o con una pull request. Per modifiche visive includi una cattura del terminale; per modifiche all'input e al renderer conserva la separazione tra sprite e comandi, i processi in background dell'utente e la pulizia della sessione.
+
+**67 è distribuito con licenza [MIT](LICENSE).** Il progetto usa [Chafa](https://hpjansson.org/chafa/) per il rendering e [Zsh](https://www.zsh.org/) per l'interazione.

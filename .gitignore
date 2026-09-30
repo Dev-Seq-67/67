@@ -1,2 +1,4 @@
 /dist/
 /error.log
+__pycache__/
+*.py[cod]

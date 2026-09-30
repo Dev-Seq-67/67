@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:11.701
+Ubuntu 24.04 · installazione reale in un contenitore pulito
+
+00:00:11.701 --> 00:00:16.831
+APT legge e verifica la sorgente firmata del progetto
+
+00:00:16.831 --> 00:00:33.946
+sudo apt install 67 · Chafa e Zsh arrivano come dipendenze
+
+00:00:33.946 --> 00:00:43.992
+Pacchetto installato, comando disponibile nel PATH
+
+00:00:43.992 --> 00:00:49.855
+Il gatto si anima sopra il prompt · la riga dei comandi resta libera
+
+00:00:49.855 --> 00:01:02.059
+Zoom sul rendering reale di Chafa e sull’input di Zsh
+
+00:01:02.059 --> 00:01:12.813
+67 --stop nasconde la GIF · 67 la riattiva · exit torna alla shell
+
+00:01:12.813 --> 00:01:14.810
+Installazione verificata · animazione reale · shell originale ripristinata
