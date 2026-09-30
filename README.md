@@ -41,51 +41,36 @@ Lo sprite è un asset di **144 × 48 pixel**, con due pose da 280 ms. Nel termin
 
 ### Debian / Ubuntu: repository APT
 
-La prima volta devi aggiungere la sorgente del progetto. **Dopo questa configurazione il comando di installazione è esattamente:**
+Al primo utilizzo aggiungi la sorgente APT del progetto. Esegui questi comandi **nell'ordine indicato**; l'ultimo avvia il programma:
 
 ```sh
+sudo apt update
+curl -fsSL https://dev-seq-67.github.io/67/configure-apt.sh -o /tmp/67-configure-apt.sh
+sudo sh /tmp/67-configure-apt.sh https://dev-seq-67.github.io/67
+sudo apt install 67
+67
+```
+
+I primi due comandi preparano `curl` e i certificati HTTPS per scaricare lo script. Se sono già installati, APT li lascia invariati. Lo script configura il repository e verifica l'hash della chiave pubblica. Il secondo `apt update` aggiorna gli indici includendo il repository di 67; `apt install 67` installa il programma e le dipendenze Chafa e Zsh. L'ultimo comando, `67`, lo avvia in un terminale interattivo.
+
+La configurazione del repository si fa **una sola volta per computer**. In seguito, per installare o aggiornare il pacchetto, bastano:
+
+```sh
+sudo apt update
 sudo apt install 67
 ```
 
-Il pacchetto non è nei repository ufficiali di Debian o Ubuntu: eseguire soltanto quel comando su un computer che non conosce ancora la sorgente non basta.
-
-**1. Prepara il download.** Se `curl` e i certificati HTTPS sono già disponibili, passa al punto 2.
-
-```sh
-sudo apt update
-sudo apt install curl ca-certificates
-```
-
-**2. Aggiungi il repository, una volta per computer.**
-
-```sh
-curl -fsSL https://dev-seq-67.github.io/67/configure-apt.sh -o /tmp/67-configure-apt.sh
-sudo sh /tmp/67-configure-apt.sh https://dev-seq-67.github.io/67
-sudo apt update
-```
-
-Lo script verifica l'hash della chiave pubblica scaricata e crea due file:
+Il pacchetto non è nei repository ufficiali di Debian o Ubuntu: il computer deve prima conoscere la sorgente di 67. Lo script aggiunge questi due file:
 
 | File | Scopo |
 | --- | --- |
 | `/etc/apt/keyrings/67-archive-keyring.gpg` | Chiave pubblica per verificare questa sorgente. |
 | `/etc/apt/sources.list.d/67.sources` | Indirizzo del repository e riferimento alla chiave tramite `Signed-By`. |
 
-**3. Installa e avvia.**
-
-```sh
-sudo apt install 67
-67
-```
-
-APT risolve e installa anche Chafa e Zsh dalle sorgenti della tua distribuzione. Il pacchetto mette il comando in `/usr/bin/67` e gli asset in `/usr/share/67/`.
-
-Per controllare il risultato:
+**Verifica facoltativa:**
 
 ```sh
 command -v 67
-# /usr/bin/67
-
 dpkg-query -W 67 chafa zsh
 67 --help
 ```
