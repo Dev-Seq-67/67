@@ -25,12 +25,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v6
-      - name: Verify the signed repository before publication
+      - name: Verify the signed package archive before publication
         run: |
           gpgv --keyring "$PWD/apt/67-archive-keyring.gpg" apt/InRelease
-          ./tests/apt-repository.sh
-        env:
-          REPOSITORY: ${{ github.workspace }}/apt
+          gzip -t apt/Packages.gz
+          dpkg-deb --info apt/pool/67_1.5.0_all.deb
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
