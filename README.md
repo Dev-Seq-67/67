@@ -3,12 +3,11 @@
 </p>
 
 <p align="center">
-  <strong>Un comando. Otto righe di pixel art. Il prompt pronto per scrivere.</strong><br>
-  Un piccolo gatto animato sopra la riga dei comandi, dentro una sessione Zsh temporanea.
+  <strong>67.</strong><br>
+  Un piccolo gatto che ti fà il 67.
 </p>
 
-<p align="center">
-  <a href="https://dev-seq-67.github.io/67/demo/">▶ Guarda la demo</a> ·
+<p align="center"> 
   <a href="#installazione">Installa</a> ·
   <a href="#utilizzo">Usalo</a> ·
   <a href="#sviluppo-e-verifiche">Sviluppa</a> ·
@@ -34,27 +33,9 @@ Digita `67`: un gatto nero e bianco alterna le zampe nel gesto “6 7”, mentre
 
 Lo sprite è un asset di **144 × 48 pixel**, con due pose da 280 ms. Nel terminale occupa **48 colonne × 8 righe**: una dimensione scelta per distinguere occhi, lingua e zampe. [Guarda il confronto visivo](design/README.md).
 
-## Demo dal vivo
-
 <a href="https://dev-seq-67.github.io/67/demo/">
   <img src="docs/demo/preview.gif" alt="Registrazione reale: il gatto si anima sopra il prompt mentre viene digitato un comando; zoom sul terminale" width="100%">
 </a>
-
-**[▶ Video completo: installazione, prova e zoom](https://dev-seq-67.github.io/67/demo/)** · [Scarica l'MP4](https://dev-seq-67.github.io/67/demo/67-demo.mp4) · [File nel repository](docs/demo/67-demo.mp4)
-
-**1 minuto e 15 secondi**, senza audio, con didascalie e ingrandimento **1,65×**. L'anteprima qui sopra mostra un estratto; il video completo contiene tutti i passaggi:
-
-| Momento | Cosa vedi |
-| --- | --- |
-| [00:00](https://dev-seq-67.github.io/67/demo/?t=0) | Download dello script e configurazione iniziale del repository APT. |
-| [00:12](https://dev-seq-67.github.io/67/demo/?t=12) | `sudo apt update` legge la sorgente firmata. |
-| [00:17](https://dev-seq-67.github.io/67/demo/?t=17) | **`sudo apt install 67`**, conferma e installazione delle dipendenze. |
-| [00:34](https://dev-seq-67.github.io/67/demo/?t=34) | Verifica dei pacchetti, del percorso del comando e dell'aiuto. |
-| [00:44](https://dev-seq-67.github.io/67/demo/?t=44) | Avvio con `67` e animazione della GIF nel terminale. |
-| [00:50](https://dev-seq-67.github.io/67/demo/?t=50) | Zoom sul gatto; digitazione ed esecuzione di `printf`. |
-| [01:02](https://dev-seq-67.github.io/67/demo/?t=62) | `67 --stop`, riavvio con `67` e ritorno alla shell con `exit`. |
-
-La registrazione usa un contenitore Ubuntu 24.04 pulito: **APT scarica e installa davvero il pacchetto dal repository pubblico**. Chafa 1.14.0 e Zsh 5.9 eseguono l'animazione; i comandi e il loro output sono reali. Titoli e zoom vengono aggiunti dopo la cattura. Nel contenitore `sudo` non chiede una password; sul tuo computer può richiederla. [Dati della registrazione](docs/demo/recording.json) · [Come riprodurla](tools/demo/README.md).
 
 ## Installazione
 
