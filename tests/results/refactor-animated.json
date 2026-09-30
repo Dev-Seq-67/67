@@ -1,0 +1,1 @@
+{"by_process":[{"cpu_percent_one_core":3.245,"name":"zsh"},{"cpu_percent_one_core":0.624,"name":"chafa"}],"cpu_percent_one_core":3.868,"label":"refactor-final:animated","peak_fds":9,"peak_processes":2,"peak_rss_kib":20424,"peak_threads":2,"seconds":8.013}

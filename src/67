@@ -1,0 +1,69 @@
+#!/bin/sh
+set -eu
+
+case ${1:-} in
+    --help|-h)
+        printf '%s\n' 'Uso: 67 [--stop]' \
+            'Apre una shell Zsh con la GIF animata sopra la riga dei comandi.' \
+            'Nella shell: 67 --stop ferma la GIF; 67 la riattiva; exit torna alla shell originale.'
+        exit 0
+        ;;
+    --stop)
+        printf '%s\n' '67: esegui 67 --stop nella shell con la GIF.' >&2
+        exit 1
+        ;;
+    '') ;;
+    *)
+        printf '%s\n' 'Uso: 67 [--stop]' >&2
+        exit 2
+        ;;
+esac
+if [ "$#" -ne 0 ]; then
+    printf '%s\n' 'Uso: 67 [--stop]' >&2
+    exit 2
+fi
+
+for dependency in chafa zsh; do
+    if ! command -v "$dependency" >/dev/null 2>&1; then
+        printf '67: manca %s. Debian/Ubuntu: sudo apt install chafa zsh\n' "$dependency" >&2
+        exit 127
+    fi
+done
+if [ ! -t 0 ] || [ ! -t 1 ]; then
+    printf '%s\n' '67: avvia il comando in un terminale interattivo.' >&2
+    exit 1
+fi
+
+script=$0
+case $script in
+    */*) ;;
+    *) script=$(command -v "$script") ;;
+esac
+bindir=$(CDPATH= cd -- "$(dirname -- "$script")" && pwd -P)
+data=$bindir/../share/67
+if [ ! -r "$data/67.gif" ] || [ ! -r "$data/prompt.zsh" ]; then
+    data=$bindir/../assets
+    prompt=$bindir/prompt.zsh
+else
+    prompt=$data/prompt.zsh
+fi
+if [ ! -r "$data/67.gif" ] || [ ! -r "$prompt" ]; then
+    printf '%s\n' '67: asset mancanti. Reinstalla il progetto.' >&2
+    exit 1
+fi
+for module in ansi frames renderer editor; do
+    if [ ! -r "${prompt%/*}/prompt/$module.zsh" ]; then
+        printf '%s\n' '67: moduli mancanti. Reinstalla il progetto.' >&2
+        exit 1
+    fi
+done
+
+# A private startup file loads the line editor integration without editing
+# the user's dotfiles, changing their login shell, or creating tmux panes.
+config=$(mktemp -d)
+trap 'rm -rf -- "$config"' 0
+trap 'exit 130' INT
+trap 'exit 143' TERM
+printf '%s\n' 'source "$SIXTYSEVEN_PROMPT"' > "$config/.zshrc"
+SIXTYSEVEN_GIF=$data/67.gif SIXTYSEVEN_PROMPT=$prompt \
+    SIXTYSEVEN_BIN=$bindir/67 ZDOTDIR=$config zsh -d -i
