@@ -44,9 +44,9 @@ Lo sprite è un asset di **144 × 48 pixel**, con due pose da 280 ms. Nel termin
 Al primo utilizzo aggiungi la sorgente APT del progetto. Esegui questi comandi **nell'ordine indicato**; l'ultimo avvia il programma:
 
 ```sh
-sudo apt update
 curl -fsSL https://dev-seq-67.github.io/67/configure-apt.sh -o /tmp/67-configure-apt.sh
 sudo sh /tmp/67-configure-apt.sh https://dev-seq-67.github.io/67
+sudo apt update
 sudo apt install 67
 67
 ```
